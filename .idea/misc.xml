@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/drawable/circle_bg.xml" value="0.256" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26851851851851855" />
         <entry key="app/src/main/res/layout/item_loading.xml" value="0.31640625" />
-        <entry key="app/src/main/res/layout/item_photo.xml" value="0.5065176908752328" />
+        <entry key="app/src/main/res/layout/item_photo.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -4,4 +4,5 @@
     <string name="select_images">Select Images</string>
     <string name="update_count">Update Count</string>
     <string name="sequence_updated">Sequence Updated</string>
+    <string name="size_message">Sequence size should be greater than 0</string>
 </resources>

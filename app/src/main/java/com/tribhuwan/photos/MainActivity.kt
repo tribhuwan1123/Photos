@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var activityMainBinding: ActivityMainBinding
     private lateinit var adapter: PhotosAdapter
-    private var loadMore: Boolean = false
     private var isLoading = false
     private var sequenceSize = 50
     private var nextLimit = 10
@@ -99,13 +98,12 @@ class MainActivity : AppCompatActivity() {
             rowsArrayList.removeAt(rowsArrayList.size - 1)
             val scrollPosition = rowsArrayList.size
             adapter.notifyItemRemoved(scrollPosition)
-            val currentSize = scrollPosition
-            nextLimit = currentSize + 10
+            nextLimit = scrollPosition + 10
             if (nextLimit > sequenceSize) {
                 nextLimit = sequenceSize
             }
 
-            for (i in currentSize + 1..nextLimit) {
+            for (i in scrollPosition + 1..nextLimit) {
                 rowsArrayList.add(i.toString())
             }
             adapter.notifyDataSetChanged()
@@ -120,11 +118,18 @@ class MainActivity : AppCompatActivity() {
             imagePickerLauncher.launch(createConfig())
         }
         activityMainBinding.updateCount.setOnClickListener {
-            sequenceSize = activityMainBinding.sequenceSize.text.ifEmpty { 50 }.toString().toInt()
-            rowsArrayList.clear()
-            addRows()
-            adapter.notifyDataSetChanged()
-            Toast.makeText(this, getString(R.string.sequence_updated), Toast.LENGTH_SHORT).show()
+            if (activityMainBinding.sequenceSize.text.toString().toInt() > 0) {
+                sequenceSize =
+                    activityMainBinding.sequenceSize.text.ifEmpty { 50 }.toString().toInt()
+                rowsArrayList.clear()
+                addRows()
+                adapter.notifyDataSetChanged()
+                Toast.makeText(this, getString(R.string.sequence_updated), Toast.LENGTH_SHORT)
+                    .show()
+                activityMainBinding.rvPhotos.scrollToPosition(0)
+            } else {
+                Toast.makeText(this, getString(R.string.size_message), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
